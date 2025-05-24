@@ -3,19 +3,64 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Colors */
+  --primary: #1A365D; /* Deep Navy Blue */
+  --primary-dark: #122744;
+  --primary-light: #2A4A7F;
+  
+  /* Secondary Colors */
+  --secondary: #F9F7F2; /* Soft Cream */
+  --secondary-dark: #E9E7E2;
+  --secondary-light: #FFFDF8;
+  
+  /* Accent Colors */
+  --accent: #D4AF37; /* Gold Accent */
+  --accent-dark: #B49020;
+  --accent-light: #E6C860;
+  
+  /* Additional Colors */
+  --charcoal: #333333;
+  --sage: #7D9D9C;
+  --terracotta: #CD5C5C;
+  
+  /* System Colors */
+  --background: var(--secondary);
+  --foreground: var(--charcoal);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--primary-dark);
+    --foreground: var(--secondary-light);
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-raleway), sans-serif;
+}
+
+/* Custom Utility Classes */
+.section-padding {
+  padding: 4rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 6rem 3rem;
+  }
+}
+
+/* Animation Classes */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
 }
