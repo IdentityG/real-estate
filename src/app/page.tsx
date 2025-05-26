@@ -6,6 +6,8 @@ import AdvancedPropertySearch from '@/components/home/AdvancedPropertySearch';
 import FeaturedProperties from '@/components/home/FeaturedProperties';
 import WhyChooseMekiya from '@/components/home/WhyChooseMekiya';
 import AboutMekiya from '@/components/home/AboutMekiya';
+import AmenitySection from '@/components/home/AmenitySection';
+import PropertyCategories from '@/components/home/PropertyCategories';
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
       <AboutMekiya />
       <AdvancedPropertySearch />
       <FeaturedProperties />
+      <AmenitySection />
+      <PropertyCategories />
       <WhyChooseMekiya />
      
       {/* Add other sections here */}
