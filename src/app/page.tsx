@@ -8,6 +8,7 @@ import WhyChooseMekiya from '@/components/home/WhyChooseMekiya';
 import AboutMekiya from '@/components/home/AboutMekiya';
 import AmenitySection from '@/components/home/AmenitySection';
 import PropertyCategories from '@/components/home/PropertyCategories';
+import PropertyGallery from '@/components/home/PropertyGallery';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <AdvancedPropertySearch />
       <FeaturedProperties />
       <AmenitySection />
+      <PropertyGallery />
       <PropertyCategories />
       <WhyChooseMekiya />
      
