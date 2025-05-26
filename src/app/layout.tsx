@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Raleway, Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/common/Navbar";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
