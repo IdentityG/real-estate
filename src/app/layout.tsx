@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Raleway, Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/layout/navbar/Navbar";
+import Navbar from "../components/Navbar";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -22,7 +22,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Modern Real Estate | Find Your Dream Home",
+  title: "Mekiya Real Estate | Find Your Dream Home",
   description: "Discover exceptional properties with our modern real estate platform",
 };
 
@@ -37,7 +37,9 @@ export default function RootLayout({
         className={`${playfair.variable} ${raleway.variable} ${montserrat.variable} antialiased`}
       >
         <Navbar />
-        {children}
+        <main className="pt-16 lg:pt-20">
+          {children}
+        </main>
       </body>
     </html>
   );

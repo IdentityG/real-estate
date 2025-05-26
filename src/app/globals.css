@@ -4,63 +4,50 @@
 
 :root {
   /* Primary Colors */
-  --primary: #1A365D; /* Deep Navy Blue */
-  --primary-dark: #122744;
-  --primary-light: #2A4A7F;
+  --color-deep-teal: #005F73;
+  --color-royal-navy: #0A2342;
   
   /* Secondary Colors */
-  --secondary: #F9F7F2; /* Soft Cream */
-  --secondary-dark: #E9E7E2;
-  --secondary-light: #FFFDF8;
+  --color-warm-sand: #E9D8A6;
+  --color-soft-sage: #94A187;
   
-  /* Accent Colors */
-  --accent: #D4AF37; /* Gold Accent */
-  --accent-dark: #B49020;
-  --accent-light: #E6C860;
+  /* Neutrals */
+  --color-white: #FFFFFF;
+  --color-alabaster: #F8F9FA;
+  --color-silver-mist: #DEE2E6;
+  --color-slate-gray: #6C757D;
+  --color-charcoal: #212529;
+  --color-midnight: #001219;
   
-  /* Additional Colors */
-  --charcoal: #333333;
-  --sage: #7D9D9C;
-  --terracotta: #CD5C5C;
+  /* Accents */
+  --color-terracotta: #AE2012;
+  --color-gold-leaf: #BB9457;
   
-  /* System Colors */
-  --background: var(--secondary);
-  --foreground: var(--charcoal);
+  /* States */
+  --color-success: #2A9D8F;
+  --color-warning: #E9C46A;
+  --color-error: #AE2012;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: var(--primary-dark);
-    --foreground: var(--secondary-light);
-  }
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-raleway), sans-serif;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Custom Utility Classes */
-.section-padding {
-  padding: 4rem 1.5rem;
+::-webkit-scrollbar-track {
+  background: var(--color-alabaster);
 }
 
-@media (min-width: 768px) {
-  .section-padding {
-    padding: 6rem 3rem;
-  }
+::-webkit-scrollbar-thumb {
+  background: var(--color-deep-teal);
+  border-radius: 4px;
 }
 
-/* Animation Classes */
-.animate-on-scroll {
-  opacity: 0;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-in-out forwards;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.5s ease-out forwards;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-royal-navy);
 }

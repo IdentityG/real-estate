@@ -9,45 +9,41 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        primary: {
-          DEFAULT: "var(--primary)",
-          dark: "var(--primary-dark)",
-          light: "var(--primary-light)",
-        },
-        secondary: {
-          DEFAULT: "var(--secondary)",
-          dark: "var(--secondary-dark)",
-          light: "var(--secondary-light)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          dark: "var(--accent-dark)",
-          light: "var(--accent-light)",
-        },
-        charcoal: "var(--charcoal)",
-        sage: "var(--sage)",
-        terracotta: "var(--terracotta)",
+        // Primary
+        "deep-teal": "#005F73",
+        "royal-navy": "#0A2342",
+        
+        // Secondary
+        "warm-sand": "#E9D8A6",
+        "soft-sage": "#94A187",
+        
+        // Neutrals
+        white: "#FFFFFF",
+        alabaster: "#F8F9FA",
+        "silver-mist": "#DEE2E6",
+        "slate-gray": "#6C757D",
+        charcoal: "#212529",
+        midnight: "#001219",
+        
+        // Accents
+        terracotta: "#AE2012",
+        "gold-leaf": "#BB9457",
+        
+        // States
+        success: "#2A9D8F",
+        warning: "#E9C46A",
+        error: "#AE2012",
       },
       fontFamily: {
-        heading: ["var(--font-playfair)", "serif"],
-        body: ["var(--font-raleway)", "sans-serif"],
-        accent: ["var(--font-montserrat)", "sans-serif"],
+        playfair: ["var(--font-playfair)", "serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+        raleway: ["var(--font-raleway)", "sans-serif"],
       },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out forwards',
-        'slide-up': 'slideUp 0.5s ease-out forwards',
+      boxShadow: {
+        'elegant': '0 4px 20px rgba(0, 0, 0, 0.08)',
       },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
+      backgroundImage: {
+        'hero-gradient': 'linear-gradient(to right, #0A2342, #005F73)',
       },
     },
   },
