@@ -10,6 +10,9 @@ import AmenitySection from '@/components/home/AmenitySection';
 import PropertyCategories from '@/components/home/PropertyCategories';
 import PropertyGallery from '@/components/home/PropertyGallery';
 import MeetOurAgents from '@/components/home/MeetOurAgents';
+import ClientTestimonials from '@/components/home/ClientTestimonials';
+import BlogHighlights from '@/components/home/BlogHighlights';
+import CTABanner from '@/components/home/CTABanner';
 
 export default function Home() {
   return (
@@ -23,6 +26,9 @@ export default function Home() {
       <PropertyGallery />
       <PropertyCategories />
       <MeetOurAgents />
+      <ClientTestimonials />
+      <BlogHighlights />
+      <CTABanner />
       <WhyChooseMekiya />
      
       {/* Add other sections here */}
