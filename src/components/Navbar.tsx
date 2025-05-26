@@ -212,7 +212,7 @@ const Navbar = () => {
                 <div className="w-6 h-6 flex flex-col justify-center items-center">
                   <motion.span
                     className={`block h-0.5 w-6 rounded-sm transition-all duration-300 ${
-                      isScrolled ? 'bg-gray-700' : 'bg-white'
+                      isScrolled ? 'bg-gray-700' : 'bg-blue-700'
                     }`}
                     animate={{
                       rotate: isOpen ? 45 : 0,
@@ -221,7 +221,7 @@ const Navbar = () => {
                   />
                   <motion.span
                     className={`block h-0.5 w-6 rounded-sm transition-all duration-300 ${
-                      isScrolled ? 'bg-gray-700' : 'bg-white'
+                      isScrolled ? 'bg-gray-700' : 'bg-blue-700'
                     }`}
                     animate={{
                       opacity: isOpen ? 0 : 1
@@ -229,7 +229,7 @@ const Navbar = () => {
                   />
                   <motion.span
                     className={`block h-0.5 w-6 rounded-sm transition-all duration-300 ${
-                      isScrolled ? 'bg-gray-700' : 'bg-white'
+                      isScrolled ? 'bg-gray-700' : 'bg-blue-700'
                     }`}
                     animate={{
                       rotate: isOpen ? -45 : 0,

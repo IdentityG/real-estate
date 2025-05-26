@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import Image from 'next/image';
+import { MdOutlineBed, MdOutlineShower} from "react-icons/md";
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -54,8 +55,8 @@ const mockProperties: Property[] = [
     price: '$1,200,000',
     location: 'Addis Ababa, CMC',
     image: '/images/estate3.jpg',
-    bedrooms: 0,
-    bathrooms: 0,
+    bedrooms: 5,
+    bathrooms: 3,
     type: 'Land',
     featured: true
   },
@@ -65,7 +66,7 @@ const mockProperties: Property[] = [
     price: '$2,800,000',
     location: 'Addis Ababa, Megenagna',
     image: '/images/estate4.jpg',
-    bedrooms: 0,
+    bedrooms: 14,
     bathrooms: 8,
     type: 'Commercial',
     featured: true
@@ -340,18 +341,19 @@ const FeaturedProperties = () => {
                     <div className="flex items-center gap-4 text-slate-gray border-t border-silver-mist pt-4">
                       {property.bedrooms > 0 && (
                         <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2L3 7v11a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V7l-7-5z" />
-                          </svg>
-                          <span className="font-montserrat text-sm">{property.bedrooms} bed</span>
+                        <label className="flex items-center text-sm font-montserrat">
+                         <MdOutlineBed className="w-4 h-4 mr-2 text-deep-teal" />
+                         {property.bedrooms} bed
+                       </label>
                         </div>
+                        
                       )}
                       {property.bathrooms > 0 && (
                         <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
-                          </svg>
-                          <span className="font-montserrat text-sm">{property.bathrooms} bath</span>
+                         <label className="flex items-center text-sm font-montserrat">
+                         <MdOutlineShower className="w-4 h-4 mr-2 text-deep-teal" />
+                         {property.bathrooms} bath
+                       </label>
                         </div>
                       )}
                     </div>
