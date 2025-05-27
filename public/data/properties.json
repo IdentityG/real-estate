@@ -1,0 +1,310 @@
+{
+  "properties": [
+    {
+      "id": 1,
+      "title": "Modern Downtown Penthouse",
+      "description": "Luxurious penthouse with stunning city views and premium amenities",
+      "location": "Downtown",
+      "propertyType": "buy",
+      "price": 1250000,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "sqft": 2100,
+      "amenities": ["Pool", "Parking", "Security", "Gym", "Balcony", "Air Conditioning"],
+      "images": ["/images/estate1.jpg", "/images/estate2.jpg"],
+      "featured": true,
+      "yearBuilt": 2020,
+      "address": "123 Downtown Plaza, Suite 4501"
+    },
+    {
+      "id": 2,
+      "title": "Charming Westside Family Home",
+      "description": "Beautiful family home with spacious garden and modern kitchen",
+      "location": "Westside",
+      "propertyType": "buy",
+      "price": 850000,
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "sqft": 2800,
+      "amenities": ["Garden", "Parking", "Fireplace", "Walk-in Closet", "Laundry"],
+      "images": ["/images/estate3.jpg", "/images/estate4.jpg"],
+      "featured": false,
+      "yearBuilt": 2018,
+      "address": "456 Maple Street, Westside"
+    },
+    {
+      "id": 3,
+      "title": "Luxury Marina District Condo",
+      "description": "Waterfront condo with marina access and premium finishes",
+      "location": "Marina District",
+      "propertyType": "rent",
+      "price": 4500,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "sqft": 1600,
+      "amenities": ["Pool", "Parking", "Security", "Balcony", "Air Conditioning"],
+      "images": ["/images/estate5.jpg", "/images/estate1.jpg"],
+      "featured": true,
+      "yearBuilt": 2021,
+      "address": "789 Marina Boulevard, Unit 302"
+    },
+    {
+      "id": 4,
+      "title": "Commercial Office Space",
+      "description": "Prime commercial space in the heart of Financial District",
+      "location": "Financial District",
+      "propertyType": "commercial",
+      "price": 2500000,
+      "bedrooms": 0,
+      "bathrooms": 4,
+      "sqft": 5000,
+      "amenities": ["Parking", "Security", "Air Conditioning", "Elevator Access"],
+      "images": ["/images/estate2.jpg", "/images/estate3.jpg"],
+      "featured": false,
+      "yearBuilt": 2019,
+      "address": "321 Financial Plaza, Floor 15"
+    },
+    {
+      "id": 5,
+      "title": "Eastside Starter Home",
+      "description": "Perfect starter home with updated kitchen and cozy living spaces",
+      "location": "Eastside",
+      "propertyType": "buy",
+      "price": 425000,
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "sqft": 1200,
+      "amenities": ["Parking", "Garden", "Fireplace"],
+      "images": ["/images/estate4.jpg", "/images/estate5.jpg"],
+      "featured": false,
+      "yearBuilt": 2015,
+      "address": "654 Oak Avenue, Eastside"
+    },
+    {
+      "id": 6,
+      "title": "Northside Luxury Villa",
+      "description": "Stunning villa with pool, garden, and mountain views",
+      "location": "Northside",
+      "propertyType": "buy",
+      "price": 1850000,
+      "bedrooms": 5,
+      "bathrooms": 4,
+      "sqft": 4200,
+      "amenities": ["Pool", "Parking", "Garden", "Security", "Gym", "Fireplace", "Walk-in Closet", "Laundry"],
+      "images": ["/images/estate1.jpg", "/images/estate2.jpg"],
+      "featured": true,
+      "yearBuilt": 2022,
+      "address": "987 Hillside Drive, Northside"
+    },
+    {
+      "id": 7,
+      "title": "Arts Quarter Loft",
+      "description": "Industrial loft with exposed brick and artistic flair",
+      "location": "Arts Quarter",
+      "propertyType": "rent",
+      "price": 2800,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "sqft": 900,
+      "amenities": ["Parking", "Air Conditioning", "High Ceilings"],
+      "images": ["/images/estate3.jpg", "/images/estate4.jpg"],
+      "featured": false,
+      "yearBuilt": 2017,
+      "address": "147 Artist Way, Arts Quarter"
+    },
+    {
+      "id": 8,
+      "title": "Southside Family Rental",
+      "description": "Spacious family home perfect for long-term rental",
+      "location": "Southside",
+      "propertyType": "rent",
+      "price": 3200,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "sqft": 1800,
+      "amenities": ["Parking", "Garden", "Laundry", "Air Conditioning"],
+      "images": ["/images/estate5.jpg", "/images/estate1.jpg"],
+      "featured": false,
+      "yearBuilt": 2016,
+      "address": "258 Pine Street, Southside"
+    },
+    {
+      "id": 9,
+      "title": "Prime Development Land",
+      "description": "Excellent opportunity for residential or commercial development",
+      "location": "Westside",
+      "propertyType": "land",
+      "price": 750000,
+      "bedrooms": 0,
+      "bathrooms": 0,
+      "sqft": 0,
+      "lotSize": "2.5 acres",
+      "amenities": ["Utilities Available", "Zoned Mixed Use"],
+      "images": ["/images/estate2.jpg"],
+      "featured": false,
+      "yearBuilt": null,
+      "address": "1000 Development Drive, Westside"
+    },
+    {
+      "id": 10,
+      "title": "Downtown Studio Apartment",
+      "description": "Compact and efficient studio in the heart of downtown",
+      "location": "Downtown",
+      "propertyType": "rent",
+      "price": 1800,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "sqft": 550,
+      "amenities": ["Security", "Air Conditioning", "Gym"],
+      "images": ["/images/estate3.jpg"],
+      "featured": false,
+      "yearBuilt": 2020,
+      "address": "369 Central Avenue, Unit 1205"
+    },
+    {
+      "id": 11,
+      "title": "Marina District Townhouse",
+      "description": "Modern townhouse with water views and private garage",
+      "location": "Marina District",
+      "propertyType": "buy",
+      "price": 1150000,
+      "bedrooms": 3,
+      "bathrooms": 3,
+      "sqft": 2200,
+      "amenities": ["Parking", "Balcony", "Security", "Walk-in Closet", "Laundry"],
+      "images": ["/images/estate4.jpg", "/images/estate5.jpg"],
+      "featured": true,
+      "yearBuilt": 2021,
+      "address": "741 Harbor View Lane"
+    },
+    {
+      "id": 12,
+      "title": "Commercial Retail Space",
+      "description": "High-traffic retail location perfect for restaurants or shops",
+      "location": "Downtown",
+      "propertyType": "commercial",
+      "price": 1200000,
+      "bedrooms": 0,
+      "bathrooms": 2,
+      "sqft": 2500,
+      "amenities": ["Parking", "Street Access", "High Visibility"],
+      "images": ["/images/estate1.jpg", "/images/estate2.jpg"],
+      "featured": false,
+      "yearBuilt": 2018,
+      "address": "852 Main Street, Ground Floor"
+    },
+    {
+      "id": 13,
+      "title": "Eastside Luxury Condo",
+      "description": "High-end condo with premium amenities and city views",
+      "location": "Eastside",
+      "propertyType": "rent",
+      "price": 3800,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "sqft": 1400,
+      "amenities": ["Pool", "Parking", "Security", "Gym", "Balcony", "Air Conditioning"],
+      "images": ["/images/estate3.jpg", "/images/estate4.jpg"],
+      "featured": true,
+      "yearBuilt": 2022,
+      "address": "963 Skyline Boulevard, Unit 2801"
+    },
+    {
+      "id": 14,
+      "title": "Northside Country Estate",
+      "description": "Expansive estate with acreage, perfect for privacy and luxury",
+      "location": "Northside",
+      "propertyType": "buy",
+      "price": 2750000,
+      "bedrooms": 6,
+      "bathrooms": 5,
+      "sqft": 6500,
+      "amenities": ["Pool", "Parking", "Garden", "Security", "Gym", "Fireplace", "Walk-in Closet", "Laundry", "Wine Cellar"],
+      "images": ["/images/estate5.jpg", "/images/estate1.jpg"],
+      "featured": true,
+      "yearBuilt": 2023,
+      "address": "1500 Country Club Road, Northside"
+    },
+    {
+      "id": 15,
+      "title": "Industrial Land Parcel",
+      "description": "Large industrial land parcel with excellent transportation access",
+      "location": "Southside",
+      "propertyType": "land",
+      "price": 950000,
+      "bedrooms": 0,
+      "bathrooms": 0,
+      "sqft": 0,
+      "lotSize": "5 acres",
+      "amenities": ["Rail Access", "Highway Access", "Utilities Available"],
+      "images": ["/images/estate2.jpg"],
+      "featured": false,
+      "yearBuilt": null,
+      "address": "2000 Industrial Boulevard, Southside"
+    }
+  ],
+  "filterOptions": {
+    "locations": [
+      "Downtown",
+      "Westside", 
+      "Eastside",
+      "Northside",
+      "Southside",
+      "Marina District",
+      "Financial District",
+      "Arts Quarter"
+    ],
+    "propertyTypes": [
+      {
+        "value": "buy",
+        "label": "Buy",
+        "icon": "🏠"
+      },
+      {
+        "value": "rent",
+        "label": "Rent", 
+        "icon": "🔑"
+      },
+      {
+        "value": "commercial",
+        "label": "Commercial",
+        "icon": "🏢"
+      },
+      {
+        "value": "land",
+        "label": "Land",
+        "icon": "🌍"
+      }
+    ],
+    "amenities": [
+      "Pool",
+      "Parking", 
+      "Garden",
+      "Security",
+      "Gym",
+      "Balcony",
+      "Air Conditioning",
+      "Fireplace",
+      "Walk-in Closet",
+      "Laundry"
+    ],
+    "priceRanges": {
+      "buy": {
+        "min": 425000,
+        "max": 2750000
+      },
+      "rent": {
+        "min": 1800,
+        "max": 4500
+      },
+      "commercial": {
+        "min": 1200000,
+        "max": 2500000
+      },
+      "land": {
+        "min": 750000,
+        "max": 950000
+      }
+    }
+  }
+}

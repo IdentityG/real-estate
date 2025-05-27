@@ -155,7 +155,7 @@ const PropertiesPageHero: React.FC<PropertiesPageHeroProps> = ({
   return (
     <section 
       ref={heroRef}
-      className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background Image/Video */}
       <motion.div 
@@ -263,10 +263,13 @@ const PropertiesPageHero: React.FC<PropertiesPageHeroProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => {
-                // Scroll to filter section
+                // Scroll to filter section with precise positioning
                 const filterSection = document.getElementById('property-filters');
                 if (filterSection) {
-                  filterSection.scrollIntoView({ behavior: 'smooth' });
+                  const navbarHeight = 80; // Adjust based on your navbar height
+                  const yOffset = -navbarHeight; // Negative offset to account for navbar
+                  const y = filterSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
                 }
               }}
             >
