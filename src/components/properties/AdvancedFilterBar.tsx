@@ -99,28 +99,37 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // GSAP Sticky and Scroll Animations
+  // GSAP Sticky and Scroll Animations - FIXED
   useEffect(() => {
-    if (!isSticky || !stickyRef.current) return;
+    if (!isSticky || !stickyRef.current || isMobile) return; // Don't apply on mobile
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: stickyRef.current,
         start: 'top top',
-        end: 'bottom top',
+        end: '+=50vh', // Reduced distance
         pin: true,
-        pinSpacing: false,
+        pinSpacing: true,
         onUpdate: (self) => {
-          if (collapsible) {
+          if (collapsible && !isMobile) { // Only on desktop
             const progress = self.progress;
-            setIsCollapsed(progress > 0.1);
+            setIsCollapsed(progress > 0.5); // Higher threshold
+          }
+        },
+        onRefresh: () => {
+          // Reset state on refresh
+          if (!isMobile) {
+            setIsCollapsed(false);
           }
         }
       });
     }, stickyRef);
 
-    return () => ctx.revert();
-  }, [isSticky, collapsible]);
+    return () => {
+      ctx.revert();
+      ScrollTrigger.refresh(); // Ensure cleanup
+    };
+  }, [isSticky, collapsible, isMobile]);
 
   // Handle filter changes
   const handleFilterChange = (key: keyof FilterState, value: string | string[]) => {
@@ -180,7 +189,7 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 1, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
@@ -244,36 +253,36 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
           </motion.div>
         )}
 
-        {/* Filter Content */}
-        <AnimatePresence>
+        {/* Filter Content - FIXED */}
+        <AnimatePresence mode="wait">
           {(!isMobile || isExpanded) && (
             <motion.div
-              className="py-6"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ overflow: 'visible' }} // Add this to prevent content clipping
+              key="filter-content"
+              className="overflow-hidden" // Important for clipping content during animation
+              initial={{ opacity: 0, y: -20 }} // Start transparent and slightly above
+              animate={{ opacity: 1, y: 0 }}    // Fade in and move to original position
+              exit={{ opacity: 0, y: -20 }}     // Fade out and move slightly above
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-
-              <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 sm:gap-4 lg:gap-6">
-                {/* Location Filter */}
-                <motion.div className="space-y-2 w-full" variants={itemVariants}>
-                  <label className="block text-sm font-montserrat font-medium text-charcoal">
-                    <MapPinIcon className="w-4 h-4 inline mr-2 text-deep-teal" />
-                    Location
-                  </label>
-                  <select
-                    value={filters.location}
-                    onChange={(e) => handleFilterChange('location', e.target.value)}
-                    className="w-full px-3 py-2 border border-silver-mist rounded-lg focus:ring-2 focus:ring-deep-teal focus:border-transparent transition-all duration-200 font-montserrat"
-                  >
-                    <option value="">Select Location</option>
-                    {locations.map(location => (
-                      <option key={location} value={location}>{location}</option>
-                    ))}
-                  </select>
-                </motion.div>
+              <div className="py-0"> {/* Content wrapper */}
+                <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 sm:gap-4 lg:gap-6">
+                  {/* Location Filter */}
+                  <motion.div className="space-y-2 w-full" variants={itemVariants}>
+                    <label className="block text-sm font-montserrat font-medium text-charcoal">
+                      <MapPinIcon className="w-4 h-4 inline mr-2 text-deep-teal" />
+                      Location
+                    </label>
+                    <select
+                      value={filters.location}
+                      onChange={(e) => handleFilterChange('location', e.target.value)}
+                      className="w-full px-3 py-2 border border-silver-mist rounded-lg focus:ring-2 focus:ring-deep-teal focus:border-transparent transition-all duration-200 font-montserrat"
+                    >
+                      <option value="">Select Location</option>
+                      {locations.map(location => (
+                        <option key={location} value={location}>{location}</option>
+                      ))}
+                    </select>
+                  </motion.div>
 
                 {/* Property Type Filter */}
                 <motion.div className="space-y-2" variants={itemVariants}>
@@ -411,7 +420,7 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
                   </div>
                 </motion.div>
               </div>
-
+              </div>
               {/* Action Buttons */}
               <motion.div 
                 className="mt-6 flex flex-col sm:flex-row gap-3 justify-center"

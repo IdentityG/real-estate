@@ -9,6 +9,31 @@ const nextConfig: NextConfig = {
         hostname: 'assets.vercel.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'tile.openstreetmap.org',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'a.tile.openstreetmap.org',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'b.tile.openstreetmap.org',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'c.tile.openstreetmap.org',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'server.arcgisonline.com',
+        pathname: '**',
+      }
     ],
   },
 };

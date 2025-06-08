@@ -3,13 +3,18 @@
 import { useState, useEffect } from 'react';
 import PropertiesPageHero from '../../components/properties/PropertiesPageHero';
 import AdvancedFilterBar from '../../components/properties/AdvancedFilterBar';
+import PropertyMapView from '../../components/properties/PropertyMapView';
 import { Property, FilterState, filterProperties, sortProperties } from '../../utils/propertyFilters';
 import CTABanner from '@/components/home/CTABanner';
+import FeaturedProperties from '@/components/properties/FeaturedProperties';
+import MeetOurAgents from '@/components/home/MeetOurAgents';
+import PropertyComparisonTool from '../../components/properties/PropertyComparisonTool';
 
 const PropertiesPage = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   // Load properties data
   useEffect(() => {
@@ -34,6 +39,15 @@ const PropertiesPage = () => {
     const filtered = filterProperties(properties, filters);
     const sorted = sortProperties(filtered);
     setFilteredProperties(sorted);
+  };
+
+  const handlePropertySelect = (property: Property) => {
+    setSelectedProperty(property);
+    // Scroll to property in the listing
+    const propertyElement = document.getElementById(`property-${property.id}`);
+    if (propertyElement) {
+      propertyElement.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   if (loading) {
@@ -84,7 +98,11 @@ const PropertiesPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProperties.map(property => (
-              <div key={property.id} className="bg-white rounded-lg shadow-elegant overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+              <div 
+                id={`property-${property.id}`}
+                key={property.id} 
+                className={`bg-white rounded-lg shadow-elegant overflow-hidden hover:shadow-2xl transition-all duration-300 ${selectedProperty?.id === property.id ? 'ring-2 ring-deep-teal' : ''}`}
+              >
                 <div className="aspect-w-16 aspect-h-9 relative">
                   <img 
                     src={property.images[0]} 
@@ -136,7 +154,16 @@ const PropertiesPage = () => {
           )}
         </div>
       </section>
+       {/* Property Map View */}
+       <PropertyMapView 
+         properties={properties}
+         filteredProperties={filteredProperties} 
+         onPropertySelect={handlePropertySelect}
+       />
+      <FeaturedProperties />
+      <PropertyComparisonTool properties={properties} maxComparisons={3} />
       <CTABanner />
+      <MeetOurAgents />
     </main>
   );
 };
