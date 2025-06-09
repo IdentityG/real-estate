@@ -214,7 +214,7 @@ const PropertiesPageHero: React.FC<PropertiesPageHeroProps> = ({
 
       {/* Content Container */}
       <motion.div 
-        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="relative z-10 container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

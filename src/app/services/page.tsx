@@ -1,9 +1,10 @@
+import ServicesPageHero from '@/components/services/ServicesPageHero'
 import React from 'react'
 
 const page = () => {
   return (
     <main className='min-h-screen'>
-        <h1>Services</h1>
+        <ServicesPageHero />
     </main>
   )
 }

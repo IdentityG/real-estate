@@ -231,7 +231,7 @@ const CompanyStory: React.FC = () => {
         <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-royal-navy rounded-full blur-3xl" />
       </motion.div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"

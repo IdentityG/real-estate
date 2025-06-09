@@ -294,7 +294,7 @@ export default function CompanyCulture() {
         <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-br from-orange-200 to-yellow-300 rounded-full blur-lg floating-element" />
       </motion.div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto max-w-7xl px-4 relative z-10">
         {/* Section Header */}
         <motion.div
           initial="hidden"

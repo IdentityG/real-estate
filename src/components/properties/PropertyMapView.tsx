@@ -209,7 +209,7 @@ const PropertyMapView: React.FC<PropertyMapViewProps> = ({ properties, filteredP
       whileInView="visible"
       viewport={{ once: true }}
     >
-      <div className="container mx-auto px-4">
+      <div className="container max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <motion.div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
