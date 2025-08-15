@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'fra
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import { 
-  MagnifyingGlassIcon, 
-  MapPinIcon, 
-  HomeIcon, 
+import {
+  MagnifyingGlassIcon,
+  MapPinIcon,
+  HomeIcon,
   UserGroupIcon,
   PlayIcon,
   StarIcon,
@@ -26,19 +26,19 @@ const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, size: number, delay: number}>>([]);
-  
+  const [particles, setParticles] = useState<Array<{ id: number, x: number, y: number, size: number, delay: number }>>([]);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const floatingElementsRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
-  
+
   const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
   const x = useSpring(0, springConfig);
   const rotateX = useSpring(0, springConfig);
@@ -59,15 +59,15 @@ const HeroSection = () => {
   // Mouse movement handler
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!heroRef.current) return;
-    
+
     const rect = heroRef.current.getBoundingClientRect();
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     const mouseX = e.clientX - rect.left - centerX;
     const mouseY = e.clientY - rect.top - centerY;
-    
+
     setMousePosition({ x: mouseX, y: mouseY });
-    
+
     // Update spring values for 3D effect
     x.set(mouseX * 0.01);
     rotateY.set(mouseX * 0.01);
@@ -87,8 +87,8 @@ const HeroSection = () => {
     const ctx = gsap.context(() => {
       // Hero entrance animation
       const tl = gsap.timeline();
-      
-      tl.fromTo(heroRef.current, 
+
+      tl.fromTo(heroRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 1 }
       );
@@ -96,7 +96,7 @@ const HeroSection = () => {
       // Text reveal animation
       if (textRef.current) {
         gsap.fromTo('.hero-text-line',
-          { 
+          {
             y: 100,
             opacity: 0,
             rotationX: -90
@@ -116,7 +116,7 @@ const HeroSection = () => {
       // Background image animations
       if (imageRef.current) {
         gsap.set(imageRef.current, { scale: 1.1 });
-        
+
         ScrollTrigger.create({
           trigger: heroRef.current,
           start: 'top top',
@@ -133,7 +133,7 @@ const HeroSection = () => {
       // Floating elements with advanced animations
       if (floatingElementsRef.current) {
         const elements = floatingElementsRef.current.children;
-        
+
         Array.from(elements).forEach((element, index) => {
           gsap.to(element, {
             y: -30,
@@ -152,7 +152,7 @@ const HeroSection = () => {
       // Particle animations
       if (particlesRef.current) {
         const particleElements = particlesRef.current.children;
-        
+
         Array.from(particleElements).forEach((particle, index) => {
           gsap.to(particle, {
             y: -window.innerHeight,
@@ -192,8 +192,8 @@ const HeroSection = () => {
   };
 
   const itemVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 60,
       rotateX: -15,
       scale: 0.9
@@ -211,8 +211,8 @@ const HeroSection = () => {
   };
 
   const slideInLeft = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       x: -100,
       rotateY: -15
     },
@@ -228,8 +228,8 @@ const HeroSection = () => {
   };
 
   const slideInRight = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       x: 100,
       rotateY: 15
     },
@@ -288,7 +288,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section 
+    <section
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       onMouseMove={handleMouseMove}
@@ -297,7 +297,7 @@ const HeroSection = () => {
       {/* Revolutionary Animated Background */}
       <div className="absolute inset-0">
         {/* Morphing Gradient Background */}
-        <div 
+        <div
           className="gradient-morph absolute inset-0 opacity-90"
           style={{
             background: `
@@ -366,30 +366,30 @@ const HeroSection = () => {
 
       {/* Enhanced Floating Decorative Elements */}
       <div ref={floatingElementsRef} className="absolute inset-0 pointer-events-none">
-        <motion.div 
+        <motion.div
           className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-warm-sand/30 to-gold-leaf/20 rounded-full blur-2xl"
           variants={floatingVariants}
           animate="animate"
         />
-        <motion.div 
+        <motion.div
           className="absolute top-40 right-20 w-48 h-48 bg-gradient-to-br from-soft-sage/20 to-deep-teal/30 rounded-full blur-3xl"
           variants={floatingVariants}
           animate="animate"
           style={{ animationDelay: '1s' }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-32 left-20 w-40 h-40 bg-gradient-to-br from-terracotta/25 to-royal-navy/20 rounded-full blur-2xl"
           variants={floatingVariants}
           animate="animate"
           style={{ animationDelay: '2s' }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-20 right-10 w-24 h-24 bg-gradient-to-br from-gold-leaf/30 to-warm-sand/25 rounded-full blur-xl"
           variants={floatingVariants}
           animate="animate"
           style={{ animationDelay: '3s' }}
         />
-        
+
         {/* Geometric Shapes */}
         <motion.div
           className="absolute top-1/4 left-1/4 w-16 h-16 border-2 border-white/20 rotate-45"
@@ -406,7 +406,7 @@ const HeroSection = () => {
       {/* Main Content Container */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-screen py-20">
-          
+
           {/* Left Column - Enhanced Content */}
           <motion.div
             ref={textRef}
@@ -420,7 +420,7 @@ const HeroSection = () => {
             }}
           >
             {/* Premium Badge */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full"
             >
@@ -439,10 +439,10 @@ const HeroSection = () => {
             {/* Revolutionary Hero Headline */}
             <motion.div variants={slideInLeft} className="space-y-6">
               <div className="overflow-hidden">
-                <motion.h1 
+                <motion.h1
                   className="hero-text-line font-playfair text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
-                  style={{ 
-                    opacity, 
+                  style={{
+                    opacity,
                     y,
                     transformStyle: 'preserve-3d'
                   }}
@@ -450,9 +450,9 @@ const HeroSection = () => {
                   Discover Your
                 </motion.h1>
               </div>
-              
+
               <div className="overflow-hidden">
-                <motion.h1 
+                <motion.h1
                   className="hero-text-line font-playfair text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
                 >
                   <span className="relative inline-block">
@@ -474,9 +474,9 @@ const HeroSection = () => {
                   </span>
                 </motion.h1>
               </div>
-              
+
               <div className="overflow-hidden">
-                <motion.h1 
+                <motion.h1
                   className="hero-text-line font-playfair text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
                 >
                   with{' '}
@@ -491,25 +491,25 @@ const HeroSection = () => {
                   </span>
                 </motion.h1>
               </div>
-              
-              <motion.p 
+
+              <motion.p
                 variants={itemVariants}
                 className="hero-text-line font-montserrat text-lg sm:text-xl lg:text-2xl text-warm-sand/90 max-w-2xl leading-relaxed"
               >
-                Experience luxury living in Ethiopia's most prestigious locations with our 
+                Experience luxury living in Ethiopia's most prestigious locations with our
                 <span className="text-gold-leaf font-semibold"> award-winning </span>
                 real estate expertise.
               </motion.p>
             </motion.div>
 
             {/* Enhanced Search Bar */}
-           
+
 
             {/* Enhanced CTA Buttons */}
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6">
               <motion.button
-                whileHover={{ 
-                  scale: 1.05, 
+                whileHover={{
+                  scale: 1.05,
                   boxShadow: '0 20px 40px rgba(0, 95, 115, 0.4)',
                   y: -2
                 }}
@@ -518,7 +518,7 @@ const HeroSection = () => {
               >
                 {/* Button shine effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                
+
                 <div className="relative flex items-center gap-3">
                   <span>Explore Properties</span>
                   <motion.div
@@ -529,10 +529,10 @@ const HeroSection = () => {
                   </motion.div>
                 </div>
               </motion.button>
-              
+
               <motion.button
-                whileHover={{ 
-                  scale: 1.05, 
+                whileHover={{
+                  scale: 1.05,
                   backgroundColor: 'rgba(255, 255, 255, 0.15)',
                   y: -2
                 }}
@@ -576,7 +576,7 @@ const HeroSection = () => {
             </motion.div>
 
             {/* Enhanced Stats */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="grid grid-cols-3 gap-8 pt-10 border-t border-white/20"
             >
@@ -590,31 +590,31 @@ const HeroSection = () => {
                     whileHover={{ scale: 1.05, y: -5 }}
                     className="text-center group cursor-pointer"
                   >
-                    <motion.div 
+                    <motion.div
                       className={`relative mx-auto w-16 h-16 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-2xl transition-all duration-300`}
                       whileHover={{ rotate: 5 }}
                     >
                       <IconComponent className="h-8 w-8 text-white" />
                       <motion.div
                         className="absolute inset-0 bg-white/20 rounded-2xl"
-                        animate={{ 
+                        animate={{
                           opacity: [0, 0.5, 0],
                           scale: [1, 1.1, 1]
                         }}
-                        transition={{ 
+                        transition={{
                           duration: 3,
                           repeat: Infinity,
                           delay: index * 0.5
                         }}
                       />
                     </motion.div>
-                    
-                    <motion.div 
+
+                    <motion.div
                       className="font-playfair text-3xl sm:text-4xl font-bold text-white mb-2"
-                      animate={{ 
+                      animate={{
                         scale: [1, 1.05, 1]
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 2,
                         repeat: Infinity,
                         delay: index * 0.3
@@ -622,7 +622,7 @@ const HeroSection = () => {
                     >
                       {stat.number}
                     </motion.div>
-                    
+
                     <div className="font-montserrat text-sm text-warm-sand/90 group-hover:text-gold-leaf transition-colors duration-300">
                       {stat.label}
                     </div>
@@ -642,8 +642,8 @@ const HeroSection = () => {
             <div className="relative w-full max-w-lg">
               {/* Main Featured Property Card */}
               <motion.div
-                whileHover={{ 
-                  y: -15, 
+                whileHover={{
+                  y: -15,
                   scale: 1.03,
                   rotateY: 5,
                   rotateX: 5
@@ -676,10 +676,10 @@ const HeroSection = () => {
                         className="object-cover transition-all duration-700 group-hover:brightness-110"
                       />
                     </motion.div>
-                    
+
                     {/* Overlay Gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-royal-navy/60 via-transparent to-transparent" />
-                    
+
                     {/* Multiple Badges */}
                     <div className="absolute top-4 right-4 flex flex-col gap-2">
                       <motion.div
@@ -713,11 +713,11 @@ const HeroSection = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   {/* Property Details */}
                   <div className="space-y-6 relative z-10">
                     <div>
-                      <motion.h3 
+                      <motion.h3
                         className="font-playfair text-2xl font-bold text-white mb-2"
                         animate={{ opacity: [0.8, 1, 0.8] }}
                         transition={{ duration: 4, repeat: Infinity }}
@@ -735,7 +735,7 @@ const HeroSection = () => {
                     {/* Price and Action */}
                     <div className="flex justify-between items-center">
                       <div>
-                        <motion.span 
+                        <motion.span
                           className="font-playfair text-3xl font-bold bg-gradient-to-r from-gold-leaf to-warm-sand bg-clip-text text-transparent"
                           animate={{ scale: [1, 1.05, 1] }}
                           transition={{ duration: 3, repeat: Infinity }}
@@ -746,9 +746,9 @@ const HeroSection = () => {
                           $980/sqft
                         </div>
                       </div>
-                      
+
                       <motion.button
-                        whileHover={{ 
+                        whileHover={{
                           scale: 1.15,
                           rotate: 5,
                           boxShadow: '0 10px 25px rgba(0, 95, 115, 0.4)'
@@ -779,11 +779,11 @@ const HeroSection = () => {
 
                 {/* Floating Elements */}
                 <motion.div
-                  animate={{ 
+                  animate={{
                     y: [0, -15, 0],
                     rotate: [0, 10, 0]
                   }}
-                  transition={{ 
+                  transition={{
                     duration: 5,
                     repeat: Infinity,
                     ease: 'easeInOut'
@@ -794,11 +794,11 @@ const HeroSection = () => {
                 </motion.div>
 
                 <motion.div
-                  animate={{ 
+                  animate={{
                     y: [0, 10, 0],
                     rotate: [0, -5, 0]
                   }}
-                  transition={{ 
+                  transition={{
                     duration: 4,
                     repeat: Infinity,
                     ease: 'easeInOut',
@@ -851,15 +851,15 @@ const HeroSection = () => {
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center space-y-4 cursor-pointer group"
         >
-          <motion.span 
+          <motion.span
             className="font-montserrat text-sm text-warm-sand/90 group-hover:text-gold-leaf transition-colors"
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             Discover More Properties
           </motion.span>
-          
-          <motion.div 
+
+          <motion.div
             className="relative w-8 h-12 border-2 border-white/40 rounded-full flex justify-center group-hover:border-gold-leaf/60 transition-colors"
             whileHover={{ scale: 1.1 }}
           >
@@ -868,10 +868,10 @@ const HeroSection = () => {
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               className="w-1.5 h-4 bg-gradient-to-b from-white/80 to-gold-leaf rounded-full mt-2"
             />
-            
+
             {/* Pulse rings */}
             <motion.div
-              animate={{ 
+              animate={{
                 scale: [1, 1.5, 1],
                 opacity: [0.5, 0, 0.5]
               }}
@@ -879,7 +879,7 @@ const HeroSection = () => {
               className="absolute inset-0 border-2 border-white/20 rounded-full"
             />
           </motion.div>
-          
+
           <motion.div
             animate={{ rotate: [0, 360] }}
             transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
@@ -911,7 +911,7 @@ const HeroSection = () => {
                   <p className="font-montserrat text-lg">Virtual Tour Video Coming Soon</p>
                 </div>
               </div>
-              
+
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
