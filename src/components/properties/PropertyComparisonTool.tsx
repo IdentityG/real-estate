@@ -10,13 +10,17 @@ import { Property } from '@/utils/propertyFilters';
 interface PropertyComparisonToolProps {
   properties: Property[];
   maxComparisons?: number;
+  selectedProperties?: Property[];
+  onSelectionChange?: (properties: Property[]) => void;
 }
 
 const PropertyComparisonTool: React.FC<PropertyComparisonToolProps> = ({ 
   properties, 
-  maxComparisons = 3 
+  maxComparisons = 3,
+  selectedProperties: externalSelectedProperties = [],
+  onSelectionChange
 }) => {
-  const [selectedProperties, setSelectedProperties] = useState<Property[]>([]);
+  const [selectedProperties, setSelectedProperties] = useState<Property[]>(externalSelectedProperties);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProperties, setFilteredProperties] = useState<Property[]>(properties);
@@ -68,19 +72,29 @@ const PropertyComparisonTool: React.FC<PropertyComparisonToolProps> = ({
     setFilteredProperties(filtered);
   }, [searchTerm, properties]);
 
+  // Sync with external selected properties
+  useEffect(() => {
+    setSelectedProperties(externalSelectedProperties);
+  }, [externalSelectedProperties]);
+
   const addToComparison = (property: Property) => {
     if (selectedProperties.length < maxComparisons && 
         !selectedProperties.find(p => p.id === property.id)) {
-      setSelectedProperties([...selectedProperties, property]);
+      const newSelection = [...selectedProperties, property];
+      setSelectedProperties(newSelection);
+      onSelectionChange?.(newSelection);
     }
   };
 
   const removeFromComparison = (propertyId: number) => {
-    setSelectedProperties(selectedProperties.filter(p => p.id !== propertyId));
+    const newSelection = selectedProperties.filter(p => p.id !== propertyId);
+    setSelectedProperties(newSelection);
+    onSelectionChange?.(newSelection);
   };
 
   const clearComparison = () => {
     setSelectedProperties([]);
+    onSelectionChange?.([]);
   };
 
   const formatPrice = (price: number) => {

@@ -3,18 +3,30 @@
 import { useState, useEffect } from 'react';
 import PropertiesPageHero from '../../components/properties/PropertiesPageHero';
 import AdvancedFilterBar from '../../components/properties/AdvancedFilterBar';
+import PropertyGrid from '../../components/properties/PropertyGrid';
+import PropertyStatsDashboard from '../../components/properties/PropertyStatsDashboard';
 import PropertyMapView from '../../components/properties/PropertyMapView';
+import PropertyCalculator from '../../components/properties/PropertyCalculator';
+import PropertyRecommendations from '../../components/properties/PropertyRecommendations';
 import { Property, FilterState, filterProperties, sortProperties } from '../../utils/propertyFilters';
 import CTABanner from '@/components/home/CTABanner';
 import FeaturedProperties from '@/components/properties/FeaturedProperties';
 import MeetOurAgents from '@/components/home/MeetOurAgents';
 import PropertyComparisonTool from '../../components/properties/PropertyComparisonTool';
+import PropertyVirtualTour from '@/components/properties/PropertyVirtualTour';
+import PropertyDetailsModal from '@/components/properties/PropertyDetailsModal';
 
 const PropertiesPage = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [virtualTourOpen, setVirtualTourOpen] = useState(false);
+  const [tourProperty, setTourProperty] = useState<Property | null>(null);
+  const [selectedForComparison, setSelectedForComparison] = useState<Property[]>([]);
+  const [showPropertyDetails, setShowPropertyDetails] = useState(false);
+  const [detailsProperty, setDetailsProperty] = useState<Property | null>(null);
 
   // Load properties data
   useEffect(() => {
@@ -50,10 +62,50 @@ const PropertiesPage = () => {
     }
   };
 
+  const handleFavoriteToggle = (propertyId: number) => {
+    setFavorites(prev =>
+      prev.includes(propertyId)
+        ? prev.filter(id => id !== propertyId)
+        : [...prev, propertyId]
+    );
+  };
+
+  const handleVirtualTourOpen = (property: Property) => {
+    setTourProperty(property);
+    setVirtualTourOpen(true);
+  };
+
+  const handleVirtualTourClose = () => {
+    setVirtualTourOpen(false);
+    setTourProperty(null);
+  };
+
+  const handleComparisonToggle = (property: Property) => {
+    setSelectedForComparison(prev => {
+      const isSelected = prev.find(p => p.id === property.id);
+      if (isSelected) {
+        return prev.filter(p => p.id !== property.id);
+      } else if (prev.length < 3) {
+        return [...prev, property];
+      }
+      return prev;
+    });
+  };
+
+  const handlePropertyDetailsOpen = (property: Property) => {
+    setDetailsProperty(property);
+    setShowPropertyDetails(true);
+  };
+
+  const handlePropertyDetailsClose = () => {
+    setShowPropertyDetails(false);
+    setDetailsProperty(null);
+  };
+
   if (loading) {
     return (
       <main className="min-h-screen">
-        <PropertiesPageHero 
+        <PropertiesPageHero
           title="All Properties"
           subtitle="Browse listings by location, type, or budget"
           backgroundImage="/images/estate1.jpg"
@@ -70,100 +122,94 @@ const PropertiesPage = () => {
 
   return (
     <main className="min-h-screen">
-      <PropertiesPageHero 
+      <PropertiesPageHero
         title="All Properties"
         subtitle="Browse listings by location, type, or budget"
         backgroundImage="/images/estate1.jpg"
         showBreadcrumb={true}
         showCTA={true}
       />
-      
-      <AdvancedFilterBar 
+
+      <AdvancedFilterBar
         onFiltersChange={handleFiltersChange}
         isSticky={false}
         collapsible={true}
       />
-      
-      {/* Property listings */}
-      <section className="py-8 bg-alabaster mt-2">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <h2 className="font-playfair text-3xl font-bold text-charcoal mb-4">
-              Property Listings
-            </h2>
-            <p className="font-montserrat text-slate-gray">
-              {filteredProperties.length} properties found
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProperties.map(property => (
-              <div 
-                id={`property-${property.id}`}
-                key={property.id} 
-                className={`bg-white rounded-lg shadow-elegant overflow-hidden hover:shadow-2xl transition-all duration-300 ${selectedProperty?.id === property.id ? 'ring-2 ring-deep-teal' : ''}`}
-              >
-                <div className="aspect-w-16 aspect-h-9 relative">
-                  <img 
-                    src={property.images[0]} 
-                    alt={property.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  {property.featured && (
-                    <div className="absolute top-4 left-4 bg-deep-teal text-white px-2 py-1 rounded text-xs font-montserrat font-medium">
-                      Featured
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <h3 className="font-playfair text-xl font-bold text-charcoal mb-2">
-                    {property.title}
-                  </h3>
-                  <p className="font-montserrat text-slate-gray text-sm mb-3">
-                    {property.description}
-                  </p>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-montserrat font-bold text-deep-teal text-lg">
-                      {property.propertyType === 'rent' 
-                        ? `$${property.price.toLocaleString()}/month`
-                        : `$${property.price.toLocaleString()}`
-                      }
-                    </span>
-                    <span className="font-montserrat text-xs text-slate-gray">
-                      {property.location}
-                    </span>
-                  </div>
-                  {property.bedrooms > 0 && (
-                    <div className="flex items-center gap-4 text-sm font-montserrat text-slate-gray">
-                      <span>{property.bedrooms} bed</span>
-                      <span>{property.bathrooms} bath</span>
-                      <span>{property.sqft.toLocaleString()} sqft</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {filteredProperties.length === 0 && (
-            <div className="text-center py-12">
-              <p className="font-montserrat text-slate-gray text-lg">
-                No properties match your current filters. Try adjusting your search criteria.
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
-       {/* Property Map View */}
-       <PropertyMapView 
-         properties={properties}
-         filteredProperties={filteredProperties} 
-         onPropertySelect={handlePropertySelect}
-       />
+
+      {/* Property Grid */}
+      <PropertyGrid
+        properties={filteredProperties}
+        loading={loading}
+        onPropertySelect={handlePropertySelect}
+        onFavoriteToggle={handleFavoriteToggle}
+        onVirtualTourOpen={handleVirtualTourOpen}
+        onComparisonToggle={handleComparisonToggle}
+        onPropertyDetailsOpen={handlePropertyDetailsOpen}
+        selectedForComparison={selectedForComparison}
+        favorites={favorites}
+      />
+
+      {/* Property Stats Dashboard */}
+      <PropertyStatsDashboard
+        properties={properties}
+        filteredProperties={filteredProperties}
+      />
+
+      {/* Property Map View */}
+      <PropertyMapView
+        properties={properties}
+        filteredProperties={filteredProperties}
+        onPropertySelect={handlePropertySelect}
+      />
+
+      {/* Property Calculator */}
+      <PropertyCalculator />
+
+      {/* Property Recommendations */}
+      <PropertyRecommendations
+        properties={properties}
+        currentProperty={selectedProperty || undefined}
+        onFavoriteToggle={handleFavoriteToggle}
+        favorites={favorites}
+        userPreferences={{
+          priceRange: { min: 400000, max: 2000000 },
+          propertyTypes: ['buy', 'rent'],
+          locations: ['Downtown', 'Marina District'],
+          bedrooms: 3,
+          amenities: ['Pool', 'Parking', 'Security']
+        }}
+      />
+
       <FeaturedProperties />
-      <PropertyComparisonTool properties={properties} maxComparisons={3} />
+      <PropertyComparisonTool
+        properties={properties}
+        maxComparisons={3}
+        selectedProperties={selectedForComparison}
+        onSelectionChange={setSelectedForComparison}
+      />
       <CTABanner />
       <MeetOurAgents />
+
+      {/* Virtual Tour Modal */}
+      {tourProperty && (
+        <PropertyVirtualTour
+          propertyId={tourProperty.id}
+          propertyTitle={tourProperty.title}
+          isOpen={virtualTourOpen}
+          onClose={handleVirtualTourClose}
+        />
+      )}
+
+      {/* Property Details Modal */}
+      {detailsProperty && (
+        <PropertyDetailsModal
+          property={detailsProperty}
+          isOpen={showPropertyDetails}
+          onClose={handlePropertyDetailsClose}
+          onFavoriteToggle={handleFavoriteToggle}
+          favorites={favorites}
+        />
+      )}
     </main>
   );
 };
