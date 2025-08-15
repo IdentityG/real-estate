@@ -269,8 +269,8 @@ export default function CompanyCulture() {
     };
   }, []);
 
-  const filteredCSRInitiatives = activeCSRCategory === 'all' 
-    ? csrInitiatives 
+  const filteredCSRInitiatives = activeCSRCategory === 'all'
+    ? csrInitiatives
     : csrInitiatives.filter(initiative => initiative.category === activeCSRCategory);
 
   const csrCategories = [
@@ -284,7 +284,7 @@ export default function CompanyCulture() {
   return (
     <section ref={sectionRef} className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-teal-50">
       {/* Background Elements */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 opacity-30"
         style={{ y: backgroundY, opacity }}
       >
@@ -314,7 +314,7 @@ export default function CompanyCulture() {
             </span>
           </motion.h2>
           <motion.p variants={itemVariants} className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Our culture is rooted in Ethiopian values of community, excellence, and sustainable growth. 
+            Our culture is rooted in Ethiopian values of community, excellence, and sustainable growth.
             We're not just transforming real estate; we're building a better future for Ethiopia.
           </motion.p>
         </motion.div>
@@ -334,8 +334,8 @@ export default function CompanyCulture() {
                 <motion.div
                   key={value.id}
                   variants={cardVariants}
-                  whileHover={{ 
-                    scale: 1.05, 
+                  whileHover={{
+                    scale: 1.05,
                     y: -10,
                     transition: { duration: 0.3 }
                   }}
@@ -343,12 +343,12 @@ export default function CompanyCulture() {
                 >
                   {/* Gradient Background */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-                  
+
                   {/* Icon */}
                   <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${value.color} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
                     <IconComponent className="w-8 h-8" />
                   </div>
-                  
+
                   {/* Content */}
                   <h3 className="text-xl font-bold text-slate-800 mb-4 group-hover:text-teal-700 transition-colors">
                     {value.title}
@@ -356,13 +356,13 @@ export default function CompanyCulture() {
                   <p className="text-slate-600 mb-4 leading-relaxed">
                     {value.description}
                   </p>
-                  
+
                   {/* Stats */}
                   <div className="flex items-center gap-2 text-sm font-medium text-teal-600">
                     <CheckCircleIcon className="w-4 h-4" />
                     {value.stats}
                   </div>
-                  
+
                   {/* Shine Effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-all duration-700" />
                 </motion.div>
@@ -400,7 +400,7 @@ export default function CompanyCulture() {
             >
               {/* Background Pattern */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-full blur-2xl opacity-50" />
-              
+
               <div className="relative z-10">
                 <div className="flex flex-col md:flex-row items-center gap-8">
                   {/* Profile Image */}
@@ -425,7 +425,7 @@ export default function CompanyCulture() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Content */}
                   <div className="flex-1 text-center md:text-left">
                     <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
@@ -434,11 +434,11 @@ export default function CompanyCulture() {
                         Employee Testimonial
                       </span>
                     </div>
-                    
+
                     <blockquote className="text-lg md:text-xl text-slate-700 mb-6 leading-relaxed italic">
                       "{testimonials[activeTestimonial].quote}"
                     </blockquote>
-                    
+
                     <div className="space-y-2">
                       <h4 className="text-xl font-bold text-slate-800">
                         {testimonials[activeTestimonial].name}
@@ -465,11 +465,10 @@ export default function CompanyCulture() {
                 <button
                   key={index}
                   onClick={() => setActiveTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === activeTestimonial
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === activeTestimonial
                       ? 'bg-teal-500 scale-125'
                       : 'bg-slate-300 hover:bg-slate-400'
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -488,7 +487,7 @@ export default function CompanyCulture() {
               Corporate Social Responsibility
             </h3>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              We believe in giving back to the communities we serve. Our CSR initiatives focus on 
+              We believe in giving back to the communities we serve. Our CSR initiatives focus on
               sustainable development and creating positive impact across Ethiopia.
             </p>
           </motion.div>
@@ -501,11 +500,10 @@ export default function CompanyCulture() {
                 <button
                   key={category.id}
                   onClick={() => setActiveCSRCategory(category.id)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                    activeCSRCategory === category.id
+                  className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${activeCSRCategory === category.id
                       ? 'bg-teal-500 text-white shadow-lg scale-105'
                       : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
-                  }`}
+                    }`}
                 >
                   <IconComponent className="w-5 h-5" />
                   {category.label}
@@ -515,7 +513,7 @@ export default function CompanyCulture() {
           </motion.div>
 
           {/* CSR Initiatives Grid */}
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
@@ -523,7 +521,7 @@ export default function CompanyCulture() {
               <motion.div
                 key={initiative.id}
                 variants={cardVariants}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
                   y: -5,
                   transition: { duration: 0.3 }
@@ -539,14 +537,14 @@ export default function CompanyCulture() {
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  
+
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
                     <span className="bg-white/90 backdrop-blur-sm text-slate-800 px-3 py-1 rounded-full text-sm font-medium capitalize">
                       {initiative.category}
                     </span>
                   </div>
-                  
+
                   {/* Year Badge */}
                   <div className="absolute top-4 right-4">
                     <span className="bg-teal-500 text-white px-3 py-1 rounded-full text-sm font-medium">
@@ -554,7 +552,7 @@ export default function CompanyCulture() {
                     </span>
                   </div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="p-6">
                   <h4 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-teal-700 transition-colors">
@@ -563,7 +561,7 @@ export default function CompanyCulture() {
                   <p className="text-slate-600 mb-4 leading-relaxed">
                     {initiative.description}
                   </p>
-                  
+
                   {/* Impact Stats */}
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center justify-between">
@@ -575,7 +573,7 @@ export default function CompanyCulture() {
                       <span className="font-semibold text-slate-700">{initiative.beneficiaries}</span>
                     </div>
                   </div>
-                  
+
                   {/* Learn More Button */}
                   <button className="group/btn flex items-center gap-2 text-teal-600 hover:text-teal-700 font-medium transition-colors">
                     Learn More

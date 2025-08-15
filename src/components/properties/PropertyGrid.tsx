@@ -58,7 +58,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
   const [sortedProperties, setSortedProperties] = useState<Property[]>(properties);
   const [hoveredProperty, setHoveredProperty] = useState<number | null>(null);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
-  
+
   const gridRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
 
@@ -253,11 +253,10 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
             <div className="bg-white rounded-xl border border-silver-mist p-1 flex">
               <motion.button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-all duration-200 ${
-                  viewMode === 'grid'
+                className={`p-2 rounded-lg transition-all duration-200 ${viewMode === 'grid'
                     ? 'bg-deep-teal text-white'
                     : 'text-slate-gray hover:text-deep-teal'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -265,11 +264,10 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
               </motion.button>
               <motion.button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-all duration-200 ${
-                  viewMode === 'list'
+                className={`p-2 rounded-lg transition-all duration-200 ${viewMode === 'list'
                     ? 'bg-deep-teal text-white'
                     : 'text-slate-gray hover:text-deep-teal'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -297,30 +295,28 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
                 key={property.id}
                 variants={cardVariants}
                 layout
-                className={`property-grid-card group cursor-pointer ${
-                  viewMode === 'grid'
+                className={`property-grid-card group cursor-pointer ${viewMode === 'grid'
                     ? 'bg-white rounded-2xl shadow-elegant overflow-hidden hover:shadow-2xl transition-all duration-500'
                     : 'bg-white rounded-2xl shadow-elegant overflow-hidden hover:shadow-xl transition-all duration-300 flex'
-                }`}
+                  }`}
                 whileHover={{ y: viewMode === 'grid' ? -8 : -2, scale: viewMode === 'grid' ? 1.02 : 1.01 }}
                 onHoverStart={() => setHoveredProperty(property.id)}
                 onHoverEnd={() => setHoveredProperty(null)}
                 onClick={() => handlePropertyClick(property)}
               >
                 {/* Property Image */}
-                <div className={`relative overflow-hidden ${
-                  viewMode === 'grid' ? 'h-64' : 'w-80 h-48 flex-shrink-0'
-                }`}>
+                <div className={`relative overflow-hidden ${viewMode === 'grid' ? 'h-64' : 'w-80 h-48 flex-shrink-0'
+                  }`}>
                   <Image
                     src={property.images[0]}
                     alt={property.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  
+
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
+
                   {/* Property Type Badge */}
                   <div className={`absolute top-4 left-4 ${getPropertyTypeColor(property.propertyType)} text-white px-3 py-1 rounded-full text-xs font-montserrat font-medium flex items-center gap-1`}>
                     <span>{getPropertyTypeIcon(property.propertyType)}</span>
@@ -348,18 +344,17 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
                         <HeartIcon className="w-5 h-5" />
                       )}
                     </motion.button>
-                    
+
                     <motion.button
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         onComparisonToggle?.(property);
                       }}
-                      className={`w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors duration-200 ${
-                        selectedForComparison.find(p => p.id === property.id)
+                      className={`w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors duration-200 ${selectedForComparison.find(p => p.id === property.id)
                           ? 'text-deep-teal bg-deep-teal/20'
                           : 'text-slate-gray hover:text-deep-teal'
-                      }`}
+                        }`}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
@@ -367,7 +362,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </motion.button>
-                    
+
                     <motion.button
                       onClick={(e) => {
                         e.preventDefault();
@@ -398,7 +393,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
                         <EyeIcon className="w-4 h-4" />
                         Virtual Tour
                       </motion.button>
-                      
+
                       <motion.button
                         onClick={(e) => {
                           e.preventDefault();
@@ -428,7 +423,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
                         <span className="font-montserrat text-sm">{property.location}</span>
                       </div>
                     </div>
-                    
+
                     {viewMode === 'grid' && (
                       <div className="text-right">
                         <div className="font-playfair text-2xl font-bold text-deep-teal">
@@ -518,7 +513,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
                         <span>ID: {property.id}</span>
                       </div>*/}
                     </div>
-                    
+
                     <div className="flex gap-2">
                       <button
                         onClick={(e) => {

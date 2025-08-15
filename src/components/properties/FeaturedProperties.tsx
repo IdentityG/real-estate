@@ -203,53 +203,105 @@ const FeaturedProperties = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="py-20 bg-gradient-to-b from-alabaster to-white relative overflow-hidden w-full"
+      className="py-24 bg-gradient-to-br from-white via-alabaster/50 to-silver-mist/20 relative overflow-hidden w-full"
     >
-      {/* Decorative elements */}
-      <motion.div 
-        className="absolute top-20 left-10 w-24 h-24 bg-warm-sand/20 rounded-full blur-xl"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3]
-        }}
-        transition={{ 
-          duration: 4, 
-          repeat: Infinity,
-          ease: 'easeInOut' 
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-20 right-10 w-40 h-40 bg-soft-sage/20 rounded-full blur-xl"
-        animate={{ 
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.5, 0.2]
-        }}
-        transition={{ 
-          duration: 5, 
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1
-        }}
-      />
+      {/* Enhanced Decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div 
+          className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-warm-sand/30 to-gold-leaf/20 rounded-full blur-2xl"
+          animate={{ 
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.7, 0.4],
+            x: [0, 20, 0],
+            y: [0, -10, 0]
+          }}
+          transition={{ 
+            duration: 6, 
+            repeat: Infinity,
+            ease: 'easeInOut' 
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-soft-sage/20 to-deep-teal/10 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.4, 1],
+            opacity: [0.3, 0.6, 0.3],
+            x: [0, -30, 0],
+            y: [0, 15, 0]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 2
+          }}
+        />
+        <motion.div 
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-royal-navy/5 to-deep-teal/5 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ 
+            duration: 12, 
+            repeat: Infinity,
+            ease: 'linear'
+          }}
+        />
+      </div>
       
-      {/* Background decoration with parallax */}
+      {/* Enhanced Background decoration with parallax */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-white via-alabaster to-silver-mist/30 opacity-70"
+        className="absolute inset-0 bg-gradient-to-br from-white/80 via-alabaster/60 to-silver-mist/40"
         style={{ y, opacity, scale }}
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        {/* Section Header with GSAP animation */}
+        {/* Enhanced Section Header */}
         <motion.div
           ref={titleRef}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-royal-navy mb-4">
-            Featured Properties
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="inline-block px-6 py-3 bg-gradient-to-r from-deep-teal/10 to-royal-navy/10 rounded-full mb-6 border border-deep-teal/20"
+          >
+            <span className="font-montserrat font-semibold text-deep-teal text-sm flex items-center gap-2">
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+              >
+                ⭐
+              </motion.div>
+              Premium Collection
+            </span>
+          </motion.div>
+          
+          <h2 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold text-royal-navy mb-6 leading-tight">
+            Featured{' '}
+            <span className="relative text-deep-teal">
+              Properties
+              <motion.div
+                className="absolute -bottom-3 left-0 w-full h-2 bg-gradient-to-r from-deep-teal/30 to-warm-sand/30 rounded-full"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              />
+            </span>
           </h2>
-          <p className="font-montserrat text-lg text-slate-gray max-w-2xl mx-auto">
-            Exclusive listings curated by our team
-          </p>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="font-montserrat text-xl text-slate-gray max-w-3xl mx-auto leading-relaxed"
+          >
+            Handpicked luxury properties from our exclusive portfolio, 
+            <span className="text-deep-teal font-semibold"> curated for discerning clients</span>
+          </motion.p>
         </motion.div>
 
         {/* Modern Card Layout with Responsive Design */}
@@ -286,8 +338,8 @@ const FeaturedProperties = () => {
             </motion.button>
           </div>
           
-          {/* Pagination Indicators */}
-          <div className="flex justify-center mt-8 gap-2 py-6 w-full">
+          {/* Enhanced Pagination Indicators */}
+          <div className="flex justify-center mt-12 gap-3 py-8 w-full">
             {properties.map((_, index) => (
               <motion.button
                 key={index}
@@ -302,15 +354,22 @@ const FeaturedProperties = () => {
                   });
                   setCurrentSlide(index);
                 }}
-                className={`w-2.5 h-2.5 rounded-full ${currentSlide === index ? 'bg-deep-teal' : 'bg-silver-mist'}`}
+                className={`relative transition-all duration-300 ${
+                  currentSlide === index 
+                    ? 'w-12 h-3 bg-gradient-to-r from-deep-teal to-royal-navy rounded-full' 
+                    : 'w-3 h-3 bg-silver-mist rounded-full hover:bg-deep-teal/50'
+                }`}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                animate={{ 
-                  scale: currentSlide === index ? 1.2 : 1,
-                  backgroundColor: currentSlide === index ? '#005F73' : '#DEE2E6'
-                }}
-                transition={{ duration: 0.3 }}
-              />
+              >
+                {currentSlide === index && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-warm-sand/50 to-gold-leaf/50 rounded-full"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                )}
+              </motion.button>
             ))}
           </div>
           
@@ -332,35 +391,89 @@ const FeaturedProperties = () => {
                 <motion.div
                   key={property.id}
                   variants={itemVariants}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="property-card flex-shrink-0 bg-white rounded-xl shadow-elegant overflow-hidden hover:shadow-xl transition-all duration-300 snap-start"
+                  whileHover={{ y: -12, scale: 1.03, rotateY: 5 }}
+                  className="property-card flex-shrink-0 bg-white rounded-3xl shadow-elegant overflow-hidden hover:shadow-2xl transition-all duration-700 snap-start border border-silver-mist/50 hover:border-deep-teal/30 backdrop-blur-sm"
                   style={{
                     width: 'calc(100vw - 2rem)',
                     maxWidth: '400px',
                   }}
                 >
-                  {/* Property Image with modern aspect ratio */}
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  {/* Enhanced Property Image */}
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-t-3xl">
                     <Image
                       src={property.image}
                       alt={property.title}
                       fill
-                      className="object-cover transition-transform duration-700 hover:scale-110"
+                      className="object-cover transition-all duration-1000 group-hover:scale-115 group-hover:brightness-110 group-hover:saturate-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <span className="inline-block bg-deep-teal/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-montserrat font-medium mb-2">
+                    
+                    {/* Enhanced Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/20 to-transparent group-hover:from-midnight/70 transition-all duration-500">
+                      {/* Floating Premium Tag */}
+                      <motion.div
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="absolute top-4 left-4"
+                      >
+                        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-deep-teal via-royal-navy to-deep-teal backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-montserrat font-bold shadow-xl border border-white/30">
+                          <motion.div
+                            animate={{ 
+                              scale: [1, 1.3, 1],
+                              rotate: [0, 180, 360]
+                            }}
+                            transition={{ 
+                              duration: 3, 
+                              repeat: Infinity,
+                              ease: 'easeInOut'
+                            }}
+                          >
+                            ✨
+                          </motion.div>
                           {property.tag}
-                        </span>
-                        <h3 className="text-white font-playfair text-xl font-semibold drop-shadow-md">
+                        </div>
+                      </motion.div>
+
+                      {/* Enhanced Property Info */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <motion.h3 
+                          className="text-white font-playfair text-xl font-bold drop-shadow-lg mb-2 group-hover:text-warm-sand transition-colors duration-300"
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 0.3 }}
+                        >
                           {property.title}
-                        </h3>
-                        <p className="text-white/90 font-montserrat text-sm mt-1 flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                        </motion.h3>
+                        
+                        <motion.div 
+                          className="flex items-center text-white/90 font-montserrat text-sm"
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 0.4 }}
+                        >
+                          <div className="w-5 h-5 bg-gradient-to-r from-warm-sand to-gold-leaf rounded-full flex items-center justify-center mr-2 shadow-lg">
+                            <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <span className="group-hover:text-warm-sand transition-colors duration-300">
+                            {property.location}
+                          </span>
+                        </motion.div>
+                      </div>
+
+                      {/* Hover Overlay with View Button */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                        <motion.div
+                          initial={{ scale: 0, rotate: -180 }}
+                          whileHover={{ scale: 1.1, rotate: 0 }}
+                          className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white/40 shadow-2xl"
+                        >
+                          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
-                          {property.location}
-                        </p>
+                        </motion.div>
                       </div>
                     </div>
                   </div>

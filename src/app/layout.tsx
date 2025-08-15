@@ -3,6 +3,7 @@ import { Playfair_Display, Raleway, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
+import ClientLayout from "../components/layout/ClientLayout";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -37,11 +38,13 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${raleway.variable} ${montserrat.variable} antialiased`}
       >
-        <Navbar />
-        <main className="pt-16 lg:pt-20">
-          {children}
-        </main>
-        <Footer />
+        <ClientLayout>
+          <Navbar />
+          <main className="pt-16 lg:pt-20">
+            {children}
+          </main>
+          <Footer />
+        </ClientLayout>
       </body>
     </html>
   );

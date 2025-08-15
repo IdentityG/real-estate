@@ -4,16 +4,19 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  MapPinIcon, 
-  HomeIcon, 
+import {
+  MapPinIcon,
+  HomeIcon,
   CurrencyDollarIcon,
   FunnelIcon,
   XMarkIcon,
   ChevronDownIcon,
-  AdjustmentsHorizontalIcon
+  AdjustmentsHorizontalIcon,
+  MagnifyingGlassIcon,
+  SparklesIcon,
+  CheckIcon
 } from '@heroicons/react/24/outline';
-import { MdOutlineBed } from "react-icons/md";
+import { MdOutlineBed, MdOutlineShower } from "react-icons/md";
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -52,11 +55,11 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
     amenities: []
   });
 
-  
+
   const [isExpanded, setIsExpanded] = useState(true); // Change to true for initial visibility
   const [isMobile, setIsMobile] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  
+
   const filterBarRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
 
@@ -83,7 +86,7 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
   // Number options for bedrooms/bathrooms
   const numberOptions = ['1', '2', '3', '4', '5+'];
 
-  
+
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
@@ -93,7 +96,7 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
         setIsExpanded(true);
       }
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -207,47 +210,66 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
   };
 
   return (
-    <div 
+    <div
       ref={stickyRef}
-      className="w-full bg-white shadow-elegant border-b border-silver-mist z-30"
+      className="w-full bg-gradient-to-r from-white via-alabaster/50 to-white backdrop-blur-md border-b border-silver-mist/50 z-30 relative overflow-hidden"
       id="property-filters"
     >
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-deep-teal/10 via-transparent to-royal-navy/10" />
+        <div className="absolute top-0 left-1/4 w-32 h-32 bg-warm-sand/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-soft-sage/20 rounded-full blur-2xl" />
+      </div>
+
       <motion.div
         ref={filterBarRef}
-        className="container mx-auto px-4 sm:px-6 lg:px-8"
+        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Mobile Toggle Button */}
+        {/* Enhanced Mobile Toggle Button */}
         {isMobile && (
-          <motion.div 
-            className="py-4 flex items-center justify-between"
+          <motion.div
+            className="py-6 flex items-center justify-between"
             variants={mobileToggleVariants}
           >
-            <div className="flex items-center gap-3">
-              <FunnelIcon className="w-5 h-5 text-deep-teal" />
-              <span className="font-montserrat font-semibold text-charcoal">
-                Filters
-              </span>
-              {Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v !== '') && (
-                <span className="bg-deep-teal text-white text-xs px-2 py-1 rounded-full">
-                  Active
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-deep-teal to-royal-navy rounded-2xl flex items-center justify-center">
+                <FunnelIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <span className="font-playfair font-bold text-charcoal text-lg block">
+                  Smart Filters
                 </span>
+                <span className="font-montserrat text-sm text-slate-gray">
+                  Find your perfect property
+                </span>
+              </div>
+              {Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v !== '') && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="bg-gradient-to-r from-terracotta to-gold-leaf text-white text-xs px-3 py-1.5 rounded-full font-montserrat font-semibold flex items-center gap-1"
+                >
+                  <SparklesIcon className="w-3 h-3" />
+                  Active
+                </motion.div>
               )}
             </div>
             <motion.button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="flex items-center gap-2 px-4 py-2 bg-deep-teal text-white rounded-lg font-montserrat font-medium"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-deep-teal to-royal-navy text-white rounded-2xl font-montserrat font-semibold shadow-lg"
+              whileHover={{ scale: 1.02, boxShadow: '0 10px 25px rgba(0, 95, 115, 0.3)' }}
               whileTap={{ scale: 0.98 }}
             >
               <span>{isExpanded ? 'Hide' : 'Show'} Filters</span>
               <motion.div
                 animate={{ rotate: isExpanded ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
-                <ChevronDownIcon className="w-4 h-4" />
+                <ChevronDownIcon className="w-5 h-5" />
               </motion.div>
             </motion.button>
           </motion.div>
@@ -265,165 +287,262 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <div className="py-0"> {/* Content wrapper */}
-                <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 sm:gap-4 lg:gap-6">
-                  {/* Location Filter */}
-                  <motion.div className="space-y-2 w-full" variants={itemVariants}>
-                    <label className="block text-sm font-montserrat font-medium text-charcoal">
-                      <MapPinIcon className="w-4 h-4 inline mr-2 text-deep-teal" />
+                <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 sm:gap-6 lg:gap-8">
+                  {/* Enhanced Location Filter */}
+                  <motion.div className="space-y-3 w-full" variants={itemVariants}>
+                    <label className="block text-sm font-montserrat font-semibold text-charcoal flex items-center gap-2">
+                      <div className="w-8 h-8 bg-deep-teal/10 rounded-lg flex items-center justify-center">
+                        <MapPinIcon className="w-4 h-4 text-deep-teal" />
+                      </div>
                       Location
                     </label>
-                    <select
-                      value={filters.location}
-                      onChange={(e) => handleFilterChange('location', e.target.value)}
-                      className="w-full px-3 py-2 border border-silver-mist rounded-lg focus:ring-2 focus:ring-deep-teal focus:border-transparent transition-all duration-200 font-montserrat"
-                    >
-                      <option value="">Select Location</option>
-                      {locations.map(location => (
-                        <option key={location} value={location}>{location}</option>
-                      ))}
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={filters.location}
+                        onChange={(e) => handleFilterChange('location', e.target.value)}
+                        className="w-full px-4 py-3 border-2 border-silver-mist rounded-xl focus:ring-2 focus:ring-deep-teal focus:border-deep-teal transition-all duration-300 font-montserrat bg-white hover:border-deep-teal/50 appearance-none cursor-pointer"
+                      >
+                        <option value="">All Locations</option>
+                        {locations.map(location => (
+                          <option key={location} value={location}>{location}</option>
+                        ))}
+                      </select>
+                      <ChevronDownIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-gray pointer-events-none" />
+                      {filters.location && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute -top-2 -right-2 w-6 h-6 bg-deep-teal rounded-full flex items-center justify-center"
+                        >
+                          <CheckIcon className="w-3 h-3 text-white" />
+                        </motion.div>
+                      )}
+                    </div>
                   </motion.div>
 
-                {/* Property Type Filter */}
-                <motion.div className="space-y-2" variants={itemVariants}>
-                  <label className="block text-sm font-montserrat font-medium text-charcoal">
-                    <HomeIcon className="w-4 h-4 inline mr-2 text-deep-teal" />
-                    Property Type
-                  </label>
-                  <div className="grid grid-cols-2 gap-1">
-                    {propertyTypes.map(type => (
-                      <motion.button
-                        key={type.value}
-                        onClick={() => handleFilterChange('propertyType', 
-                          filters.propertyType === type.value ? '' : type.value
-                        )}
-                        className={`px-2 py-1.5 text-xs rounded-md font-montserrat font-medium transition-all duration-200 ${
-                          filters.propertyType === type.value
-                            ? 'bg-deep-teal text-white'
-                            : 'bg-alabaster text-charcoal hover:bg-silver-mist'
-                        }`}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <span className="mr-1">{type.icon}</span>
-                        {type.label}
-                      </motion.button>
-                    ))}
-                  </div>
-                </motion.div>
-
-                {/* Price Range */}
-                <motion.div className="space-y-2 md:col-span-2" variants={itemVariants}>
-                  <label className="block text-sm font-montserrat font-medium text-charcoal">
-                    <CurrencyDollarIcon className="w-4 h-4 inline mr-2 text-deep-teal" />
-                    Price Range
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="text"
-                      placeholder="Min Price"
-                      value={filters.priceMin}
-                      onChange={(e) => {
-                        const formatted = formatCurrency(e.target.value);
-                        handleFilterChange('priceMin', formatted);
-                      }}
-                      className="px-3 py-2 border border-silver-mist rounded-lg focus:ring-2 focus:ring-deep-teal focus:border-transparent transition-all duration-200 font-montserrat text-sm"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Max Price"
-                      value={filters.priceMax}
-                      onChange={(e) => {
-                        const formatted = formatCurrency(e.target.value);
-                        handleFilterChange('priceMax', formatted);
-                      }}
-                      className="px-3 py-2 border border-silver-mist rounded-lg focus:ring-2 focus:ring-deep-teal focus:border-transparent transition-all duration-200 font-montserrat text-sm"
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Bedrooms & Bathrooms */}
-                <motion.div 
-                  className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:space-y-0 mb-6"
-                  variants={itemVariants}
-                >
-                  {/* Bedrooms */}
-                  <div className="space-y-2">
-                    <label className="block font-montserrat font-medium text-charcoal text-sm">
-                      <MdOutlineBed className="w-4 h-4 inline mr-2 text-deep-teal" />
-                      Bedrooms
+                  {/* Enhanced Property Type Filter */}
+                  <motion.div className="space-y-3" variants={itemVariants}>
+                    <label className="block text-sm font-montserrat font-semibold text-charcoal flex items-center gap-2">
+                      <div className="w-8 h-8 bg-royal-navy/10 rounded-lg flex items-center justify-center">
+                        <HomeIcon className="w-4 h-4 text-royal-navy" />
+                      </div>
+                      Property Type
                     </label>
-                    <select
-                      value={filters.bedrooms}
-                      onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-                      className="w-full px-4 py-3 border border-silver-mist rounded-lg focus:ring-2 focus:ring-deep-teal focus:border-transparent font-montserrat"
-                    >
-                      <option value="">Any</option>
-                      <option value="1">1+</option>
-                      <option value="2">2+</option>
-                      <option value="3">3+</option>
-                      <option value="4">4+</option>
-                      <option value="5">5+</option>
-                    </select>
-                  </div>
-                
-                  {/* Bathrooms */}
-                  <div className="space-y-2">
-                    <label className="block font-montserrat font-medium text-charcoal text-sm">
-                      <svg className="w-4 h-4 inline mr-2 text-deep-teal" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
-                      </svg>
-                      Bathrooms
-                    </label>
-                    <select
-                      value={filters.bathrooms}
-                      onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
-                      className="w-full px-4 py-3 border border-silver-mist rounded-lg focus:ring-2 focus:ring-deep-teal focus:border-transparent font-montserrat"
-                    >
-                      <option value="">Any</option>
-                      <option value="1">1+</option>
-                      <option value="2">2+</option>
-                      <option value="3">3+</option>
-                      <option value="4">4+</option>
-                    </select>
-                  </div>
-                </motion.div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {propertyTypes.map(type => (
+                        <motion.button
+                          key={type.value}
+                          onClick={() => handleFilterChange('propertyType',
+                            filters.propertyType === type.value ? '' : type.value
+                          )}
+                          className={`relative px-3 py-2.5 text-sm rounded-xl font-montserrat font-semibold transition-all duration-300 border-2 ${filters.propertyType === type.value
+                              ? 'bg-gradient-to-r from-royal-navy to-deep-teal text-white border-royal-navy shadow-lg'
+                              : 'bg-white text-charcoal border-silver-mist hover:border-royal-navy/50 hover:bg-royal-navy/5'
+                            }`}
+                          whileHover={{ scale: 1.05, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <span className="text-base mr-2">{type.icon}</span>
+                          {type.label}
+                          {filters.propertyType === type.value && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              className="absolute -top-1 -right-1 w-5 h-5 bg-terracotta rounded-full flex items-center justify-center"
+                            >
+                              <CheckIcon className="w-3 h-3 text-white" />
+                            </motion.div>
+                          )}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
 
-                {/* Amenities */}
-                <motion.div 
-                  className="mb-6 md:col-span-full"
-                  variants={itemVariants}
-                >
-                  <label className="block font-montserrat font-medium text-charcoal text-sm mb-3">
-                    <AdjustmentsHorizontalIcon className="w-4 h-4 inline mr-2 text-deep-teal" />
-                    Amenities
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {amenitiesOptions.map(amenity => (
-                      <motion.button
-                        key={amenity}
-                        onClick={() => toggleAmenity(amenity)}
-                        className={`px-3 py-2 rounded-full text-xs font-montserrat font-medium transition-all duration-200 ${
-                          filters.amenities.includes(amenity)
-                            ? 'bg-deep-teal text-white shadow-md'
-                            : 'bg-silver-mist text-slate-gray hover:bg-warm-sand'
-                        }`}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {amenity}
-                        {filters.amenities.includes(amenity) && (
-                          <XMarkIcon className="w-3 h-3 inline ml-1" />
+                  {/* Enhanced Price Range */}
+                  <motion.div className="space-y-3 md:col-span-2" variants={itemVariants}>
+                    <label className="block text-sm font-montserrat font-semibold text-charcoal flex items-center gap-2">
+                      <div className="w-8 h-8 bg-gold-leaf/10 rounded-lg flex items-center justify-center">
+                        <CurrencyDollarIcon className="w-4 h-4 text-gold-leaf" />
+                      </div>
+                      Price Range
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="relative">
+                        <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-gray font-montserrat text-sm">$</span>
+                        <input
+                          type="text"
+                          placeholder="Min Price"
+                          value={filters.priceMin}
+                          onChange={(e) => {
+                            const formatted = formatCurrency(e.target.value);
+                            handleFilterChange('priceMin', formatted);
+                          }}
+                          className="w-full pl-8 pr-4 py-3 border-2 border-silver-mist rounded-xl focus:ring-2 focus:ring-gold-leaf focus:border-gold-leaf transition-all duration-300 font-montserrat text-sm bg-white hover:border-gold-leaf/50"
+                        />
+                        {filters.priceMin && (
+                          <motion.button
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            onClick={() => handleFilterChange('priceMin', '')}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-slate-gray/20 rounded-full flex items-center justify-center hover:bg-slate-gray/40 transition-colors"
+                          >
+                            <XMarkIcon className="w-3 h-3 text-slate-gray" />
+                          </motion.button>
                         )}
-                      </motion.button>
-                    ))}
-                  </div>
-                </motion.div>
+                      </div>
+                      <div className="relative">
+                        <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-gray font-montserrat text-sm">$</span>
+                        <input
+                          type="text"
+                          placeholder="Max Price"
+                          value={filters.priceMax}
+                          onChange={(e) => {
+                            const formatted = formatCurrency(e.target.value);
+                            handleFilterChange('priceMax', formatted);
+                          }}
+                          className="w-full pl-8 pr-4 py-3 border-2 border-silver-mist rounded-xl focus:ring-2 focus:ring-gold-leaf focus:border-gold-leaf transition-all duration-300 font-montserrat text-sm bg-white hover:border-gold-leaf/50"
+                        />
+                        {filters.priceMax && (
+                          <motion.button
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            onClick={() => handleFilterChange('priceMax', '')}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-slate-gray/20 rounded-full flex items-center justify-center hover:bg-slate-gray/40 transition-colors"
+                          >
+                            <XMarkIcon className="w-3 h-3 text-slate-gray" />
+                          </motion.button>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Enhanced Bedrooms & Bathrooms */}
+                  <motion.div
+                    className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0"
+                    variants={itemVariants}
+                  >
+                    {/* Bedrooms */}
+                    <div className="space-y-4">
+                      <label className="flex items-center gap-3 font-montserrat font-semibold text-charcoal text-sm">
+                        <div className="w-10 h-10 bg-soft-sage/10 rounded-xl flex items-center justify-center">
+                          <MdOutlineBed className="w-5 h-5 text-soft-sage" />
+                        </div>
+                        <span>Bedrooms</span>
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+                        {['Any', '1+', '2+', '3+', '4+', '5+'].map((option, index) => (
+                          <motion.button
+                            key={option}
+                            onClick={() => handleFilterChange('bedrooms', index === 0 ? '' : option.replace('+', ''))}
+                            className={`relative py-3 px-4 text-sm rounded-xl font-montserrat font-semibold transition-all duration-300 border-2 min-h-[48px] flex items-center justify-center ${(index === 0 && !filters.bedrooms) || filters.bedrooms === option.replace('+', '')
+                                ? 'bg-gradient-to-r from-soft-sage to-deep-teal text-white border-soft-sage shadow-lg'
+                                : 'bg-white text-charcoal border-silver-mist hover:border-soft-sage/50 hover:bg-soft-sage/5'
+                              }`}
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <span>{option}</span>
+                            {((index === 0 && !filters.bedrooms) || filters.bedrooms === option.replace('+', '')) && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute -top-1 -right-1 w-5 h-5 bg-deep-teal rounded-full flex items-center justify-center"
+                              >
+                                <CheckIcon className="w-3 h-3 text-white" />
+                              </motion.div>
+                            )}
+                          </motion.button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bathrooms */}
+                    <div className="space-y-4">
+                      <label className="flex items-center gap-3 font-montserrat font-semibold text-charcoal text-sm">
+                        <div className="w-10 h-10 bg-terracotta/10 rounded-xl flex items-center justify-center">
+                          <MdOutlineShower className="w-5 h-5 text-terracotta" />
+                        </div>
+                        <span>Bathrooms</span>
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+                        {['Any', '1+', '2+', '3+', '4+'].map((option, index) => (
+                          <motion.button
+                            key={option}
+                            onClick={() => handleFilterChange('bathrooms', index === 0 ? '' : option.replace('+', ''))}
+                            className={`relative py-3 px-4 text-sm rounded-xl font-montserrat font-semibold transition-all duration-300 border-2 min-h-[48px] flex items-center justify-center ${(index === 0 && !filters.bathrooms) || filters.bathrooms === option.replace('+', '')
+                                ? 'bg-gradient-to-r from-terracotta to-gold-leaf text-white border-terracotta shadow-lg'
+                                : 'bg-white text-charcoal border-silver-mist hover:border-terracotta/50 hover:bg-terracotta/5'
+                              }`}
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <span>{option}</span>
+                            {((index === 0 && !filters.bathrooms) || filters.bathrooms === option.replace('+', '')) && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute -top-1 -right-1 w-5 h-5 bg-gold-leaf rounded-full flex items-center justify-center"
+                              >
+                                <CheckIcon className="w-3 h-3 text-white" />
+                              </motion.div>
+                            )}
+                          </motion.button>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Enhanced Amenities */}
+                  <motion.div
+                    className="md:col-span-full space-y-4"
+                    variants={itemVariants}
+                  >
+                    <label className="block font-montserrat font-semibold text-charcoal text-sm flex items-center gap-2">
+                      <div className="w-8 h-8 bg-warm-sand/10 rounded-lg flex items-center justify-center">
+                        <AdjustmentsHorizontalIcon className="w-4 h-4 text-warm-sand" />
+                      </div>
+                      Amenities & Features
+                      {filters.amenities.length > 0 && (
+                        <motion.span
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="bg-warm-sand text-royal-navy text-xs px-2 py-1 rounded-full font-bold"
+                        >
+                          {filters.amenities.length} selected
+                        </motion.span>
+                      )}
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                      {amenitiesOptions.map(amenity => (
+                        <motion.button
+                          key={amenity}
+                          onClick={() => toggleAmenity(amenity)}
+                          className={`relative px-4 py-3 rounded-xl text-sm font-montserrat font-semibold transition-all duration-300 border-2 ${filters.amenities.includes(amenity)
+                              ? 'bg-gradient-to-r from-warm-sand to-gold-leaf text-royal-navy border-warm-sand shadow-lg'
+                              : 'bg-white text-charcoal border-silver-mist hover:border-warm-sand/50 hover:bg-warm-sand/5'
+                            }`}
+                          whileHover={{ scale: 1.05, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {amenity}
+                          {filters.amenities.includes(amenity) && (
+                            <motion.div
+                              initial={{ scale: 0, rotate: -180 }}
+                              animate={{ scale: 1, rotate: 0 }}
+                              className="absolute -top-2 -right-2 w-6 h-6 bg-deep-teal rounded-full flex items-center justify-center"
+                            >
+                              <CheckIcon className="w-3 h-3 text-white" />
+                            </motion.div>
+                          )}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
               </div>
-              </div>
-              {/* Action Buttons */}
-              <motion.div 
-                className="mt-6 flex flex-col sm:flex-row gap-3 justify-center"
+              {/* Enhanced Action Buttons */}
+              <motion.div
+                className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
                 variants={itemVariants}
               >
                 <motion.button
@@ -431,21 +550,54 @@ const AdvancedFilterBar: React.FC<AdvancedFilterBarProps> = ({
                     // Apply filters logic here
                     console.log('Applying filters:', filters);
                   }}
-                  className="px-8 py-3 bg-gradient-to-r from-deep-teal to-royal-navy text-white font-montserrat font-semibold rounded-lg shadow-elegant hover:shadow-2xl transition-all duration-300"
-                  whileHover={{ scale: 1.02, y: -1 }}
+                  className="group relative px-10 py-4 bg-gradient-to-r from-deep-teal via-royal-navy to-deep-teal text-white font-montserrat font-bold rounded-2xl shadow-2xl overflow-hidden"
+                  whileHover={{
+                    scale: 1.05,
+                    y: -2,
+                    boxShadow: '0 20px 40px rgba(0, 95, 115, 0.4)'
+                  }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Apply Filters
+                  {/* Button shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
+                  <div className="relative flex items-center gap-3">
+                    <MagnifyingGlassIcon className="w-5 h-5" />
+                    <span>Search Properties</span>
+                    <motion.div
+                      animate={{ x: [0, 4, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                      →
+                    </motion.div>
+                  </div>
                 </motion.button>
-                
+
                 <motion.button
                   onClick={resetFilters}
-                  className="px-6 py-3 border-2 border-deep-teal text-deep-teal font-montserrat font-semibold rounded-lg hover:bg-deep-teal hover:text-white transition-all duration-300"
-                  whileHover={{ scale: 1.02, y: -1 }}
+                  className="group px-8 py-4 border-2 border-slate-gray/30 text-slate-gray font-montserrat font-semibold rounded-2xl hover:border-deep-teal hover:text-deep-teal hover:bg-deep-teal/5 transition-all duration-300 backdrop-blur-sm"
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Reset Filters
+                  <div className="flex items-center gap-2">
+                    <XMarkIcon className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
+                    Clear All
+                  </div>
                 </motion.button>
+
+                {/* Filter Summary */}
+                {Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v !== '') && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex items-center gap-2 px-4 py-2 bg-warm-sand/20 rounded-full border border-warm-sand/30"
+                  >
+                    <SparklesIcon className="w-4 h-4 text-warm-sand" />
+                    <span className="font-montserrat text-sm text-charcoal">
+                      {Object.values(filters).filter(v => Array.isArray(v) ? v.length > 0 : v !== '').length} filters active
+                    </span>
+                  </motion.div>
+                )}
               </motion.div>
             </motion.div>
           )}
